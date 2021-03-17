@@ -111,8 +111,11 @@ function increaseCoBuyers(productID){
     //how to refresh and redisplay the products
 }
 
+const productImgFrame = document.getElementsByClassName("product-image")[0]
 const productImgInput = document.getElementById("productImgInput")
 const productImg = document.getElementById("productImg")
+const browseButton = document.getElementById("inputButton")
+
 productImgInput.addEventListener("change", handleImage, false)
 
 function handleImage(){
@@ -121,9 +124,12 @@ function handleImage(){
 
     reader.onload = function (e){
         productImg.src = e.target.result
-        productImg.style.display = 'block'
+        
     }
 
     reader.readAsDataURL(image)
-    productImgInput.style.display = 'none'
+
+    productImg.style.display = 'block'
+    browseButton.style.display = 'none'
+    productImgFrame.style.border = 'none'
 }

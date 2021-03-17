@@ -9,22 +9,23 @@
         <div class="container" style="font-family: 'Nunito Sans', sans-serif; display: flex; justify-content: center; align-items: center; width: 100%; height: 100vh">
             <div id="newProduct" style="width: 70%;  height: 50vh">
                 <div class="wrapper" style="display: flex; height: 100%; width: 100%">
-                    <div class="product-image" style="width: 50%; height: 100%; border: 1px solid grey; margin-right: 20px; display: flex; align-items: center; justify-content: center;">
-                        <input id="productImgInput" type="file" id="productImg"/>
+                    <div class="product-image" style="width: 50%; height: 100%; border: 1px dashed #C83714; margin-right: 20px; display: flex; align-items: center; justify-content: center;">
+                        <input id="productImgInput" type="file" id="productImg" style="display: none"/>
+                        <input type="button" id="inputButton" value="Browse..." onclick="document.getElementById('productImgInput').click()" style="border: 1px solid #C83714; background-color: white; padding: 8px 20px; border-radius: 4px; color: #C83714; font-size: 16px; cursor: pointer;" />
                         <img id="productImg" src="" style="width: 100%; display: none"/>
                     </div>
                     <div class="product-info" style="width: 50%; height: 100%">
-                        <div class="product-name" style="font-size: 30px;">
+                        <div class="product-name" style="font-size: 30px; ">
                             Product name
-                            <input type="text" id="productName" />
+                            <input type="text" id="productName" style="height: 30px"/>
                         </div>
                         <div class="product-price" style="margin-top: 10px;">
                             Product price ($)
-                            <input type="number" id="price" required />
+                            <input type="number" id="price" required  style="height: 30px"/>
                         </div>
                         <div class="product-price" style="margin-top: 10px;">
                             Number of cobuyers
-                            <input type="number" id="cobuyer" required />
+                            <input type="number" id="cobuyer" required style="height: 30px"/>
                         </div>
                     </div>
                 </div>
