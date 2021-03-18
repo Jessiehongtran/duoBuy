@@ -5,7 +5,7 @@ const products = [
         product_name: "abc",
         product_price: 22,
         cobuyers_num: 2,
-        actual_cobuyers: 0
+        actual_cobuyers: 1
     }
 ]
 
@@ -15,10 +15,14 @@ const newProduct = document.getElementById("newProduct")
 
 let actualCobuyers = 1
 
-function displayProducts(product){
-    products.push(product)
+function displayProducts(){
     newProduct.style.display = 'none'
-    console.log(productContainer)
+    
+    if (productContainer.firstChild){
+        while (productContainer.firstChild) {
+            productContainer.removeChild(productContainer.firstChild);
+        }
+    }
 
     //should not add more DOMS but only display them
     for (let i = 0; i < products.length; i++){
@@ -28,10 +32,10 @@ function displayProducts(product){
         const price = document.createElement("div")
         const joinBuyButton = document.createElement("button")
         joinBuyButton.innerHTML = "Join buying"
-        joinBuyButton.setAttribute('onclick', `increaseCoBuyers(${i})`)
+        joinBuyButton.setAttribute('onclick', `updateCobuyersAndPrice(${i})`)
         img.src = products[i].product_image
         name.innerHTML = products[i].product_name
-        price.innerHTML = "$" + products[i].product_price
+        price.innerHTML = "Max you pay: $" + products[i].current_price
         eachProduct.appendChild(img)
         eachProduct.appendChild(name)
         eachProduct.appendChild(price)
@@ -81,7 +85,7 @@ function uploadFile(file){
 
 
 
-function updatePrice(){
+function addProduct(){
     const name = document.getElementById("productName").value
     const price = document.getElementById("price").value
     const expectedCouyers = document.getElementById("cobuyer").value
@@ -94,21 +98,22 @@ function updatePrice(){
         product_image: "",
         product_name: name,
         product_price: parseInt(price),
-        cobuyers_num: parseInt(expectedCouyers)
+        current_price: Math.floor(parseInt(price)/2),
+        cobuyers_num: parseInt(expectedCouyers),
+        actualCobuyers: 1
     }
-    displayProducts(newProduct)
+    products.push(newProduct)
+    displayProducts()
     
-    //what is the proper formula?
-    //way1: price = (price - price/expectedCobuyers*actualCobuyers)
-
-    //way2: at first it's $30, if another person jump in, it's $15, 
 
 }
 
-function increaseCoBuyers(productID){
-    products[productID].actual_cobuyers += 1
-    products[productID].product_price = products[productID].product_price - products[productID].product_price/products[productID].cobuyers_num*(1+products[productID].actual_cobuyers)
+function updateCobuyersAndPrice(productID){
+    products[productID].actualCobuyers += 1
+    products[productID].current_price = products[productID].product_price/(1+products[productID].actualCobuyers)
+    console.log(productID,  products[productID].product_price, products[productID].actualCobuyers, products[productID].product_price/(1+products[productID].actualCobuyers))
     //how to refresh and redisplay the products
+    displayProducts()
 }
 
 const productImgFrame = document.getElementsByClassName("product-image")[0]
