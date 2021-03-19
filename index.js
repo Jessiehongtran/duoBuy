@@ -4,6 +4,7 @@ const products = [
         product_image: "",
         product_name: "abc",
         product_price: 22,
+        current_price: 11,
         cobuyers_num: 2,
         actual_cobuyers: 1
     }
@@ -69,6 +70,7 @@ function uploadFile(file){
             //File uploaded successfully
             let response = JSON.parse(xhr.responseText);
             let url = response.secure_url;
+            console.log('url', url)
             let tokens = url.split('/');
             tokens.splice(-2, 0, 'w_150,c_scale');
             let img = new Image(); //HTML5 Constructor
@@ -125,6 +127,7 @@ productImgInput.addEventListener("change", handleImage, false)
 
 function handleImage(){
     const image = this.files[0]
+    uploadFile(image)
     let reader = new FileReader();
 
     reader.onload = function (e){
