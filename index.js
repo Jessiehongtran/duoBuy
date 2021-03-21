@@ -1,7 +1,7 @@
 const products = [
     {
         uid: Date.now(),
-        product_image: "",
+        product_image: "https://az870929.vo.msecnd.net/cdn/media/data/default/product-large.ashx",
         product_name: "abc",
         product_price: 22,
         current_price: 11,
@@ -73,10 +73,7 @@ function uploadFile(file){
             console.log('url', url)
             let tokens = url.split('/');
             tokens.splice(-2, 0, 'w_150,c_scale');
-            let img = new Image(); //HTML5 Constructor
-            img.src = tokens.join('/');
-            img.alt = response.public_id;
-            console.log('img', img)
+            products[products.length - 1].product_image = url;
         }
     }
     fd.append('upload_preset', unsignedUploadPreset);
@@ -92,9 +89,6 @@ function addProduct(){
     const price = document.getElementById("price").value
     const expectedCouyers = document.getElementById("cobuyer").value
     const productImg = document.getElementById("productImg").value
-    uploadFile(productImg)
-
-    //add product
     const newProduct = {
         uid: Date.now(),
         product_image: "",
@@ -104,7 +98,16 @@ function addProduct(){
         cobuyers_num: parseInt(expectedCouyers),
         actualCobuyers: 1
     }
+
+    //add product
     products.push(newProduct)
+
+    if (productImg){
+        uploadFile(productImg)
+    } else {
+        products[products.length - 1].product_image = "https://az870929.vo.msecnd.net/cdn/media/data/default/product-large.ashx"
+    }
+
     displayProducts()
     
 
@@ -140,4 +143,19 @@ function handleImage(){
     productImg.style.display = 'block'
     browseButton.style.display = 'none'
     productImgFrame.style.border = 'none'
+}
+
+function handleJoinBuying(){
+    //you need to pay this amount
+    //or maybe crypto currency
+
+    //questions: who will hold this contributing money till the date to buy stuff
+    //what's the motivation to pay first (to make the price cheaper?), the one who pays first should be paying less
+    //$30: 1st per
+    //$15: 2nd per, -15 for 1st per
+    //$10: 3rd per, -5 for 1st per -5 for 2nd per
+    //$7.5: 4th per, -2.5 for 1st per, -2.5 for 2nd per, -2.5 for 3rd per
+    //there is also max cobuyers they can set so that they don't have to pay too much, once max-cobuyer is met or min-pay is met or expiration date or everyone decided to buy, 
+    //the one who initiated will buy and share the thing to the group, how to ensure he will buy and share? also he does not collect money, how about we collect money and buy then distribute to them
+    //but then they need to trust us? and how are we going to distribute the good to each of them
 }
