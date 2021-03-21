@@ -30,16 +30,19 @@ function displayProducts(){
         const eachProduct = document.createElement("div")
         const img = document.createElement("img")
         const name = document.createElement("div")
-        const price = document.createElement("div")
+        const maxPrice = document.createElement("div")
+        const minPrice = document.createElement("div")
         const joinBuyButton = document.createElement("button")
         joinBuyButton.innerHTML = "Join buying"
         joinBuyButton.setAttribute('onclick', `updateCobuyersAndPrice(${i})`)
         img.src = products[i].product_image
         name.innerHTML = products[i].product_name
-        price.innerHTML = "Max you pay: $" + products[i].current_price
+        maxPrice.innerHTML = "Max you pay: $" + products[i].current_price
+        minPrice.innerHTML = "Min you pay: $" + Math.floor(products[i].product_price/products[i].cobuyers_num)
         eachProduct.appendChild(img)
         eachProduct.appendChild(name)
-        eachProduct.appendChild(price)
+        eachProduct.appendChild(maxPrice)
+        eachProduct.appendChild(minPrice)
         eachProduct.appendChild(joinBuyButton)
 
         eachProduct.style.margin = '20px'
