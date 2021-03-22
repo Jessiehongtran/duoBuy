@@ -99,7 +99,7 @@ function addProduct(){
         product_price: parseInt(price),
         current_price: Math.floor(parseInt(price)/2),
         cobuyers_num: parseInt(expectedCouyers),
-        actualCobuyers: 1
+        actual_cobuyers: 1
     }
 
     //add product
@@ -117,11 +117,12 @@ function addProduct(){
 }
 
 function updateCobuyersAndPrice(productID){
-    products[productID].actualCobuyers += 1
-    products[productID].current_price = products[productID].product_price/(1+products[productID].actualCobuyers)
-    console.log(productID,  products[productID].product_price, products[productID].actualCobuyers, products[productID].product_price/(1+products[productID].actualCobuyers))
+    products[productID].actual_cobuyers += 1
+    products[productID].current_price = Math.round(products[productID].product_price/(1+products[productID].actual_cobuyers),2)
+    console.log(productID,  products[productID].product_price, products[productID].actual_cobuyers, products[productID].product_price/(1+products[productID].actual_cobuyers))
     //how to refresh and redisplay the products
     displayProducts()
+    handleJoinBuying(productID)
 }
 
 const productImgFrame = document.getElementsByClassName("product-image")[0]
@@ -148,7 +149,9 @@ function handleImage(){
     productImgFrame.style.border = 'none'
 }
 
-function handleJoinBuying(){
+function handleJoinBuying(i){
+    let money = document.getElementsByClassName("money")[0]
+    money.innerHTML = parseInt(money.innerHTML) - products[i].current_price
     //you need to pay this amount
     //or maybe crypto currency
 
