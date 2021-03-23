@@ -28,21 +28,44 @@ function displayProducts(){
     //should not add more DOMS but only display them
     for (let i = 0; i < products.length; i++){
         const eachProduct = document.createElement("div")
+        eachProduct.setAttribute('class', 'eachProduct')
         const img = document.createElement("img")
+        const nameContainer = document.createElement("div")
+        nameContainer.setAttribute('class', 'nameContainer')
         const name = document.createElement("div")
+        name.setAttribute('class', 'product-name')
+        const priceContainer = document.createElement("div")
+        priceContainer.setAttribute('class', 'priceContainer')
+        const maxPriceContainer = document.createElement("div")
+        maxPriceContainer.setAttribute('class', 'maxPriceContainer')
+        const maxIcon = document.createElement('img')
+        maxIcon.setAttribute('class', 'maxIcon')
+        maxIcon.src = "https://res.cloudinary.com/dfulxq7so/image/upload/v1616469856/money-bag_b7vvyv.png"
         const maxPrice = document.createElement("div")
+        const minPriceContainer = document.createElement("div")
+        minPriceContainer.setAttribute('class', 'minPriceContainer')
+        const minIcon = document.createElement('img')
+        minIcon.setAttribute('class', 'minIcon')
+        minIcon.src = "https://res.cloudinary.com/dfulxq7so/image/upload/v1616469856/money-bag_b7vvyv.png"
         const minPrice = document.createElement("div")
         const joinBuyButton = document.createElement("button")
         joinBuyButton.innerHTML = "Join buying"
+        joinBuyButton.setAttribute('class', 'join-btn')
         joinBuyButton.setAttribute('onclick', `updateCobuyersAndPrice(${i})`)
         img.src = products[i].product_image
         name.innerHTML = products[i].product_name
-        maxPrice.innerHTML = "Max you pay: $" + products[i].current_price
-        minPrice.innerHTML = "Min you pay: $" + Math.floor(products[i].product_price/products[i].cobuyers_num)
+        maxPrice.innerHTML = products[i].current_price
+        minPrice.innerHTML = Math.floor(products[i].product_price/products[i].cobuyers_num)
+        maxPriceContainer.append(maxIcon)
+        maxPriceContainer.append(maxPrice)
+        minPriceContainer.append(minIcon)
+        minPriceContainer.append(minPrice)
+        priceContainer.append(minPriceContainer)
+        priceContainer.append(maxPriceContainer)
+        nameContainer.append(name)
+        nameContainer.append(priceContainer)
         eachProduct.appendChild(img)
-        eachProduct.appendChild(name)
-        eachProduct.appendChild(maxPrice)
-        eachProduct.appendChild(minPrice)
+        eachProduct.appendChild(nameContainer)
         eachProduct.appendChild(joinBuyButton)
 
         eachProduct.style.margin = '20px'
