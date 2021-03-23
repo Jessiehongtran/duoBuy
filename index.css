@@ -36,9 +36,9 @@
 }
 
 .eachProduct {
-    display: flex;
-    flex-direction: column;
-    max-width: 250px;
+    /* display: flex;
+    flex-direction: column; */
+    max-width: 200px;
 }
 
 .priceContainer {
@@ -70,9 +70,17 @@
     font-size: 26px;
 }
 
+.productName {
+    font-size: 20px;
+    display:flex;
+    flex-wrap: wrap;
+    word-break:break-all;
+}
+
 .nameContainer {
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-end;
 }
@@ -95,6 +103,10 @@
 #productImg {
     width: 100%; 
     display: none
+}
+
+.imageContainer {
+    width: 100%;
 }
 
 #inputButton {

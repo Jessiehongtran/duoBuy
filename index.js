@@ -29,11 +29,14 @@ function displayProducts(){
     for (let i = 0; i < products.length; i++){
         const eachProduct = document.createElement("div")
         eachProduct.setAttribute('class', 'eachProduct')
+        const imageContainer = document.createElement("div")
+        imageContainer.setAttribute('class', 'imageContainer')
         const img = document.createElement("img")
+        img.style.width = "100%"
         const nameContainer = document.createElement("div")
         nameContainer.setAttribute('class', 'nameContainer')
         const name = document.createElement("div")
-        name.setAttribute('class', 'product-name')
+        name.setAttribute('class', 'productName')
         const priceContainer = document.createElement("div")
         priceContainer.setAttribute('class', 'priceContainer')
         const maxPriceContainer = document.createElement("div")
@@ -64,7 +67,8 @@ function displayProducts(){
         priceContainer.append(maxPriceContainer)
         nameContainer.append(name)
         nameContainer.append(priceContainer)
-        eachProduct.appendChild(img)
+        imageContainer.append(img)
+        eachProduct.appendChild(imageContainer)
         eachProduct.appendChild(nameContainer)
         eachProduct.appendChild(joinBuyButton)
 
