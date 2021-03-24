@@ -12,6 +12,7 @@ const products = [
 
 const productContainer = document.getElementById("products")
 const newProduct = document.getElementById("newProduct")
+const walletBudget = document.getElementsByClassName("money")[0]
 
 
 let actualCobuyers = 1
@@ -59,6 +60,9 @@ function displayProducts(){
         name.innerHTML = products[i].product_name
         maxPrice.innerHTML = products[i].current_price
         minPrice.innerHTML = Math.floor(products[i].product_price/products[i].cobuyers_num)
+        if (parseInt(maxPrice.innerHTML) < parseInt(minPrice.innerHTML)){
+            minPriceContainer.style.display = 'none'
+        }
         maxPriceContainer.append(maxIcon)
         maxPriceContainer.append(maxPrice)
         minPriceContainer.append(minIcon)
@@ -146,7 +150,6 @@ function addProduct(){
 function updateCobuyersAndPrice(productID){
     products[productID].actual_cobuyers += 1
     products[productID].current_price = Math.round(products[productID].product_price/(1+products[productID].actual_cobuyers),2)
-    console.log(productID,  products[productID].product_price, products[productID].actual_cobuyers, products[productID].product_price/(1+products[productID].actual_cobuyers))
     //how to refresh and redisplay the products
     displayProducts()
     handleJoinBuying(productID)
@@ -177,10 +180,10 @@ function handleImage(){
 }
 
 function handleJoinBuying(i){
+    //you need to pay this amount
     let money = document.getElementsByClassName("money")[0]
     money.innerHTML = parseInt(money.innerHTML) - products[i].current_price
-    //you need to pay this amount
-    //or maybe crypto currency
+    
 
     //questions: who will hold this contributing money till the date to buy stuff
     //what's the motivation to pay first (to make the price cheaper?), the one who pays first should be paying less
