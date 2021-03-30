@@ -13,7 +13,7 @@ const products = [
 const productContainer = document.getElementById("products")
 const newProduct = document.getElementById("newProduct")
 const walletBudget = document.getElementsByClassName("money")[0]
-
+const howItWorks = document.getElementsByClassName("how-it-works")[0]
 
 let actualCobuyers = 1
 
@@ -25,6 +25,11 @@ function displayProducts(){
             productContainer.removeChild(productContainer.firstChild);
         }
     }
+
+    howItWorks.style.display = 'flex'
+    howItWorks.style.flexDirection = 'column'
+    howItWorks.style.width = '100%'
+    howItWorks.style.alignItems = 'flex-start'
 
     //should not add more DOMS but only display them
     for (let i = 0; i < products.length; i++){
@@ -148,11 +153,11 @@ function addProduct(){
 }
 
 function updateCobuyersAndPrice(productID){
+    handleJoinBuying(productID)
     products[productID].actual_cobuyers += 1
     products[productID].current_price = Math.round(products[productID].product_price/(1+products[productID].actual_cobuyers),2)
     //how to refresh and redisplay the products
     displayProducts()
-    handleJoinBuying(productID)
 }
 
 const productImgFrame = document.getElementsByClassName("product-image")[0]
