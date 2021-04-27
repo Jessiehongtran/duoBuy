@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>DuoBuy</title>
+        <link rel="stylesheet" href="index.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap" rel="stylesheet">
+    <script defer src="js/bundle.js"></script></head>
+    <body>
+        <div class="container">
+            <div class="wallet">Your wallet: $<span class="money">400</span></div>
+            <div id="newProduct" >
+                <div class="wrapper" >
+                    <div class="product-image" >
+                        <input id="productImgInput" type="file" id="productImg" />
+                        <input type="button" id="inputButton" value="Browse..." onclick="document.getElementById('productImgInput').click()" />
+                        <img id="productImg" src="" />
+                    </div>
+                    <div class="product-info" >
+                        <div class="product-name" >
+                            Product name
+                            <input type="text" id="productName"  class="product-figures"/>
+                        </div>
+                        <div class="product-price">
+                            Product price ($)
+                            <input type="number" id="price" required  class="product-figures"/>
+                        </div>
+                        <div class="product-price" >
+                            Number of cobuyers
+                            <input type="number" id="cobuyer" required class="product-figures"/>
+                        </div>
+                        <button class="publish-btn" onclick="addProduct()" >Publish</button>
+                    </div>
+                </div>
+            </div>
+            <div class="how-it-works" style="display: none">
+                <p class="title">How it works</p>
+                <p class="explain">You pay by the max price but may get reimbursed to get to the min price later on</p>
+            </div>
+            <div id="products" style="display: none">
+            </div>
+        </div>
+        <script src="index.js"></script>
+    </body>
+</html>

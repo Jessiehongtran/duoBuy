@@ -1,0 +1,42 @@
+{
+  "name": "duobuy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --mode development --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jessiehongtran/duoBuy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jessiehongtran/duoBuy/issues"
+  },
+  "homepage": "https://github.com/Jessiehongtran/duoBuy#readme",
+  "dependencies": {
+    "@babel/runtime": "^7.13.10",
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "core-js": "^3.10.0",
+    "crypto-browserify": "^3.12.0",
+    "crypto-js": "^3.1.9-1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.14",
+    "@babel/preset-env": "^7.13.12",
+    "babel-loader": "^8.2.2",
+    "html-webpack-plugin": "^5.3.1",
+    "webpack": "^5.30.0",
+    "webpack-cli": "^4.6.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "browser": {
+    "crypto": false
+  }
+}

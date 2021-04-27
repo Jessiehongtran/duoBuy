@@ -1,3 +1,5 @@
+const API_URL = 'http://localhost:4001'
+
 const products = [
     {
         uid: Date.now(),
@@ -135,6 +137,8 @@ function addProduct(){
         product_price: parseInt(price),
         current_price: Math.floor(parseInt(price)/2),
         cobuyers_num: parseInt(expectedCouyers),
+        group_code: Math.random().toString(36).slice(-4),
+        host_code: Math.random().toString(36).slice(-3),
         actual_cobuyers: 1
     }
 
@@ -188,6 +192,7 @@ function handleJoinBuying(i){
     //you need to pay this amount
     let money = document.getElementsByClassName("money")[0]
     money.innerHTML = parseInt(money.innerHTML) - products[i].current_price
+    //reimburse for existing cobuyers an amount = price/cur_cobuyers - price/(cur_cobuyers + 1)
     
 
     //questions: who will hold this contributing money till the date to buy stuff
@@ -199,4 +204,67 @@ function handleJoinBuying(i){
     //there is also max cobuyers they can set so that they don't have to pay too much, once max-cobuyer is met or min-pay is met or expiration date or everyone decided to buy, 
     //the one who initiated will buy and share the thing to the group, how to ensure he will buy and share? also he does not collect money, how about we collect money and buy then distribute to them
     //but then they need to trust us? and how are we going to distribute the good to each of them
+}
+
+
+//100, 3 cobuyers >> total 4 >> 25 each ideally
+
+//min: 25, max: 50
+//host pays $100
+//1st buy: pay $50, all got reimbursed price/cur_cobuyers - price/(cur_cobuyers + 1)
+//min: 25, max: 33
+//2nd buy: pay $33, all got reimbursed price/cur_cobuyers - price/(cur_cobuyers + 1)
+//min: 0, max: 25
+//3rd buy: pay $25, all got reimbursed price/cur_cobuyers - price/(cur_cobuyers + 1) 
+
+
+
+
+//coins assemble
+//what happens if they have enough money? who is owning all money at that time and who is going to buy
+
+//who will buy: give them one time access into the fund? how do we make sure it's an agreement of all cobuyers (each contribute a part of the code, the code is combined of group code and individual code, after a certain time if the code is not decoded, money will be returned to each of them? do we take care of whether they actually share using it after buying?
+// const password = 'abc123'
+// const rounds = 10
+// bcrypt.hash(password, rounds, (err, hash) => {
+//     if (err){
+//         console.error(err)
+//         return 
+//     }
+//     console.log(hash)
+// })
+
+
+function addProductToServer(newProduct){
+    console.log('new product', newProduct)
+    let url = `${API_URL}/product`
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    xhr.setRequestHeader('Content-type', 'application/json');
+    xhr.onreadystatechange = function (e){
+        if (xhr.readyState == 4 && xhr.status == 200){
+            let response = JSON.parse(xhr.responseText);
+            console.log('response in post', response)
+        }
+        console.log(xhr.responseText)
+    }
+    // xhr.send(JSON.stringify(newProduct)) 
+    xhr.send(newProduct)
+}
+
+addProductToServer({
+    product_name: 'CANON 4 camera',
+	product_image: '',
+	product_price: 123,
+	current_price: 62,
+	cobuyers_total: 2,
+	actual_cobuyers: 1,
+	host_code: 'CD',
+	hostId: 1
+})
+
+
+function getProductsFromServer(){
+
 }
