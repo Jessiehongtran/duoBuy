@@ -249,7 +249,7 @@ function addProductToServer(newProduct){
         }
         console.log(xhr.responseText)
     }
-    // xhr.send(JSON.stringify(newProduct)) 
+    xhr.send(JSON.stringify(newProduct)) 
     xhr.send(newProduct)
 }
 
