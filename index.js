@@ -50,7 +50,7 @@ function displayProducts(products){
         const joinBuyButton = document.createElement("button")
         joinBuyButton.innerHTML = "Join buying"
         joinBuyButton.setAttribute('class', 'join-btn')
-        joinBuyButton.setAttribute('onclick', `updateCobuyersAndPrice(${i})`)
+        joinBuyButton.addEventListener('click', function(){updateCobuyersAndPrice(products[i])})
         img.src = products[i].product_image
         name.innerHTML = products[i].product_name
         maxPrice.innerHTML = products[i].current_price
@@ -98,7 +98,6 @@ function uploadFile(file, newProduct){
             //File uploaded successfully
             let response = JSON.parse(xhr.responseText);
             let url = response.secure_url;
-            console.log('url', url)
             let tokens = url.split('/');
             tokens.splice(-2, 0, 'w_150,c_scale');
             newProduct.product_image = url;
@@ -140,12 +139,33 @@ function addProduct(){
 
 }
 
-function updateCobuyersAndPrice(productID){
-    handleJoinBuying(productID)
-    products[productID].actual_cobuyers += 1
-    products[productID].current_price = Math.round(products[productID].product_price/(1+products[productID].actual_cobuyers),2)
-    //how to refresh and redisplay the products
-    displayProducts()
+function updateCobuyersAndPrice(curProduct){
+    let url = `${API_URL}/product/${curProduct.id}`
+    let xhr = new XMLHttpRequest();
+    xhr.open('PATCH', url, true);
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    xhr.setRequestHeader('Content-type', 'application/json');
+    xhr.onreadystatechange = function (e){
+        if (xhr.readyState == 4 && xhr.status == 200){
+            let response = JSON.parse(xhr.responseText);
+            getProductsFromServer()
+        }
+    }
+    xhr.send(JSON.stringify({
+        actual_cobuyers: curProduct.actual_cobuyers + 1,
+        current_price: Math.round(curProduct.product_price/(2+curProduct.actual_cobuyers),2),
+
+    })) 
+
+    handleJoinBuying(curProduct) 
+    
+}
+
+function handleJoinBuying(curProduct){
+    //you need to pay this amount
+    let money = document.getElementsByClassName("money")[0]
+    money.innerHTML = parseInt(money.innerHTML) - curProduct.current_price //needs to be put on backend 
+    //reimburse for existing cobuyers an amount = price/cur_cobuyers - price/(cur_cobuyers + 1)
 }
 
 const productImgFrame = document.getElementsByClassName("product-image")[0]
@@ -172,17 +192,7 @@ function handleImage(){
     productImgFrame.style.border = 'none'
 }
 
-function handleJoinBuying(i){
-    //you need to pay this amount
-    let money = document.getElementsByClassName("money")[0]
-    money.innerHTML = parseInt(money.innerHTML) - products[i].current_price
-    //reimburse for existing cobuyers an amount = price/cur_cobuyers - price/(cur_cobuyers + 1)
-}
-
-
-
 function addProductToServer(newProduct){
-    console.log('new product', newProduct)
     let url = `${API_URL}/product`
     let xhr = new XMLHttpRequest();
     xhr.open('POST', url, true);
@@ -206,7 +216,6 @@ function getProductsFromServer(){
     xhr.onreadystatechange = function (e){
         if (xhr.readyState == 4 && xhr.status == 200){
             let response = JSON.parse(xhr.responseText);
-            console.log('products', response)
             displayProducts(response)
         }
     
