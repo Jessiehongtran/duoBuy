@@ -23,60 +23,82 @@ function displayProducts(products){
 
     //should not add more DOMS but only display them
     for (let i = 0; i < products.length; i++){
-        const eachProduct = document.createElement("div")
-        eachProduct.setAttribute('class', 'eachProduct')
-        const imageContainer = document.createElement("div")
-        imageContainer.setAttribute('class', 'imageContainer')
-        const img = document.createElement("img")
-        img.style.width = "100%"
-        const nameContainer = document.createElement("div")
-        nameContainer.setAttribute('class', 'nameContainer')
-        const name = document.createElement("div")
-        name.setAttribute('class', 'productName')
-        const priceContainer = document.createElement("div")
-        priceContainer.setAttribute('class', 'priceContainer')
-        const maxPriceContainer = document.createElement("div")
-        maxPriceContainer.setAttribute('class', 'maxPriceContainer')
-        const maxIcon = document.createElement('img')
-        maxIcon.setAttribute('class', 'maxIcon')
-        maxIcon.src = "https://res.cloudinary.com/dfulxq7so/image/upload/v1616469856/money-bag_b7vvyv.png"
-        const maxPrice = document.createElement("div")
-        const minPriceContainer = document.createElement("div")
-        minPriceContainer.setAttribute('class', 'minPriceContainer')
-        const minIcon = document.createElement('img')
-        minIcon.setAttribute('class', 'minIcon')
-        minIcon.src = "https://res.cloudinary.com/dfulxq7so/image/upload/v1616469856/money-bag_b7vvyv.png"
-        const minPrice = document.createElement("div")
-        const joinBuyButton = document.createElement("button")
-        joinBuyButton.innerHTML = "Join buying"
-        joinBuyButton.setAttribute('class', 'join-btn')
-        joinBuyButton.addEventListener('click', function(){updateCobuyersAndPrice(products[i])})
-        img.src = products[i].product_image
-        name.innerHTML = products[i].product_name
-        maxPrice.innerHTML = products[i].current_price
-        minPrice.innerHTML = Math.round(products[i].product_price/products[i].cobuyers_total)
-        if (parseInt(maxPrice.innerHTML) < parseInt(minPrice.innerHTML)){
-            minPriceContainer.style.display = 'none'
+        if (products[i].current_price > 0 && !products[i].achieved ){
+            const eachProduct = document.createElement("div")
+            eachProduct.setAttribute('class', 'eachProduct')
+            const imageContainer = document.createElement("div")
+            imageContainer.setAttribute('class', 'imageContainer')
+            const img = document.createElement("img")
+            img.style.width = "100%"
+            const nameContainer = document.createElement("div")
+            nameContainer.setAttribute('class', 'nameContainer')
+            const name = document.createElement("div")
+            name.setAttribute('class', 'productName')
+            const priceContainer = document.createElement("div")
+            priceContainer.setAttribute('class', 'priceContainer')
+            const maxPriceContainer = document.createElement("div")
+            maxPriceContainer.setAttribute('class', 'maxPriceContainer')
+            const maxIcon = document.createElement('img')
+            maxIcon.setAttribute('class', 'maxIcon')
+            maxIcon.src = "https://res.cloudinary.com/dfulxq7so/image/upload/v1616469856/money-bag_b7vvyv.png"
+            const maxPrice = document.createElement("div")
+            const minPriceContainer = document.createElement("div")
+            minPriceContainer.setAttribute('class', 'minPriceContainer')
+            const minIcon = document.createElement('img')
+            minIcon.setAttribute('class', 'minIcon')
+            minIcon.src = "https://res.cloudinary.com/dfulxq7so/image/upload/v1616469856/money-bag_b7vvyv.png"
+            const minPrice = document.createElement("div")
+            const joinBuyButton = document.createElement("button")
+            joinBuyButton.innerHTML = "Join buying"
+            joinBuyButton.setAttribute('class', 'join-btn')
+            if (parseInt(products[i].actual_cobuyers) <= parseInt(products[i].cobuyers_total)){
+                joinBuyButton.addEventListener('click', function(){
+                    console.log('give click function')
+                    updateProduct(products[i].id,
+                        JSON.stringify({
+                            actual_cobuyers: products[i].actual_cobuyers + 1, 
+                            current_price: Math.round(products[i].product_price/(2+products[i].actual_cobuyers),2),
+                    
+                        }) 
+                    )
+                    handleJoinBuying(products[i].current_price) 
+                })
+            } else {
+                joinBuyButton.addEventListener('click', function(){
+                    updateProduct(products[i].id,
+                        JSON.stringify({
+                            achieved: true
+                        })
+                    )
+                })
+            }
+            img.src = products[i].product_image
+            name.innerHTML = products[i].product_name
+            maxPrice.innerHTML = products[i].current_price
+            minPrice.innerHTML = Math.round(products[i].product_price/products[i].cobuyers_total)
+            if (parseInt(maxPrice.innerHTML) < parseInt(minPrice.innerHTML)){
+                minPriceContainer.style.display = 'none'
+            }
+            maxPriceContainer.append(maxIcon)
+            maxPriceContainer.append(maxPrice)
+            minPriceContainer.append(minIcon)
+            minPriceContainer.append(minPrice)
+            priceContainer.append(minPriceContainer)
+            priceContainer.append(maxPriceContainer)
+            nameContainer.append(name)
+            nameContainer.append(priceContainer)
+            imageContainer.append(img)
+            eachProduct.appendChild(imageContainer)
+            eachProduct.appendChild(nameContainer)
+            eachProduct.appendChild(joinBuyButton)
+
+            eachProduct.style.margin = '20px'
+            img.style.width = '200px'
+            img.style.height = '200px'
+            img.style.border = '1px solid grey'
+
+            productContainer.appendChild(eachProduct)
         }
-        maxPriceContainer.append(maxIcon)
-        maxPriceContainer.append(maxPrice)
-        minPriceContainer.append(minIcon)
-        minPriceContainer.append(minPrice)
-        priceContainer.append(minPriceContainer)
-        priceContainer.append(maxPriceContainer)
-        nameContainer.append(name)
-        nameContainer.append(priceContainer)
-        imageContainer.append(img)
-        eachProduct.appendChild(imageContainer)
-        eachProduct.appendChild(nameContainer)
-        eachProduct.appendChild(joinBuyButton)
-
-        eachProduct.style.margin = '20px'
-        img.style.width = '200px'
-        img.style.height = '200px'
-        img.style.border = '1px solid grey'
-
-        productContainer.appendChild(eachProduct)
 
     }
 
@@ -125,7 +147,8 @@ function addProduct(){
         cobuyers_total: parseInt(expectedCouyers),
         hostId: 1,
         host_code: Math.random().toString(36).slice(-3),
-        actual_cobuyers: 1
+        actual_cobuyers: 1,
+        achieved: false
     }
 
     if (productImg){
@@ -139,8 +162,9 @@ function addProduct(){
 
 }
 
-function updateCobuyersAndPrice(curProduct){
-    let url = `${API_URL}/product/${curProduct.id}`
+function updateProduct(id, change){
+    console.log('update', id, change)
+    let url = `${API_URL}/product/${id}`
     let xhr = new XMLHttpRequest();
     xhr.open('PATCH', url, true);
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -151,20 +175,14 @@ function updateCobuyersAndPrice(curProduct){
             getProductsFromServer()
         }
     }
-    xhr.send(JSON.stringify({
-        actual_cobuyers: curProduct.actual_cobuyers + 1,
-        current_price: Math.round(curProduct.product_price/(2+curProduct.actual_cobuyers),2),
-
-    })) 
-
-    handleJoinBuying(curProduct) 
+    xhr.send(change) 
     
 }
 
-function handleJoinBuying(curProduct){
+function handleJoinBuying(currentPrice){
     //you need to pay this amount
     let money = document.getElementsByClassName("money")[0]
-    money.innerHTML = parseInt(money.innerHTML) - curProduct.current_price //needs to be put on backend 
+    money.innerHTML = parseInt(money.innerHTML) - currentPrice //needs to be put on backend 
     //reimburse for existing cobuyers an amount = price/cur_cobuyers - price/(cur_cobuyers + 1)
 }
 
