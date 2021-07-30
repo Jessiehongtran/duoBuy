@@ -1,3 +1,9 @@
+//Next steps:
+//show number of cobuyers
+//bring all cobuyers into a group
+
+
+
 const API_URL = 'http://localhost:4001'
 
 const productContainer = document.getElementById("products")
@@ -26,21 +32,35 @@ function displayProducts(products){
         if (products[i].current_price > 0 && !products[i].achieved ){
             const eachProduct = document.createElement("div")
             eachProduct.setAttribute('class', 'eachProduct')
+
             const imageContainer = document.createElement("div")
             imageContainer.setAttribute('class', 'imageContainer')
             const img = document.createElement("img")
             img.style.width = "100%"
+
             const nameContainer = document.createElement("div")
             nameContainer.setAttribute('class', 'nameContainer')
             const name = document.createElement("div")
             name.setAttribute('class', 'productName')
+
+            const cobuyerContainer = document.createElement('div')
+            cobuyerContainer.setAttribute('class', 'cobuyerContainer')
+            const cobuyerIcon = document.createElement('i')
+            cobuyerIcon.setAttribute('class', 'fas fa-user-friends')
+            const numberOfBuyer = document.createElement('div')
+            numberOfBuyer.innerHTML = products[i].cobuyers_total
+            cobuyerContainer.appendChild(cobuyerIcon)
+            cobuyerContainer.appendChild(numberOfBuyer)
+
             const priceContainer = document.createElement("div")
             priceContainer.setAttribute('class', 'priceContainer')
+
             const maxPriceContainer = document.createElement("div")
             maxPriceContainer.setAttribute('class', 'maxPriceContainer')
             const maxIcon = document.createElement('img')
             maxIcon.setAttribute('class', 'maxIcon')
             maxIcon.src = "https://res.cloudinary.com/dfulxq7so/image/upload/v1616469856/money-bag_b7vvyv.png"
+
             const maxPrice = document.createElement("div")
             const minPriceContainer = document.createElement("div")
             minPriceContainer.setAttribute('class', 'minPriceContainer')
@@ -48,9 +68,11 @@ function displayProducts(products){
             minIcon.setAttribute('class', 'minIcon')
             minIcon.src = "https://res.cloudinary.com/dfulxq7so/image/upload/v1616469856/money-bag_b7vvyv.png"
             const minPrice = document.createElement("div")
+
             const joinBuyButton = document.createElement("button")
             joinBuyButton.innerHTML = "Join buying"
             joinBuyButton.setAttribute('class', 'join-btn')
+
             if (parseInt(products[i].actual_cobuyers) <= parseInt(products[i].cobuyers_total)){
                 joinBuyButton.addEventListener('click', function(){
                     console.log('give click function')
@@ -90,6 +112,7 @@ function displayProducts(products){
             imageContainer.append(img)
             eachProduct.appendChild(imageContainer)
             eachProduct.appendChild(nameContainer)
+            eachProduct.appendChild(cobuyerContainer)
             eachProduct.appendChild(joinBuyButton)
 
             eachProduct.style.margin = '20px'

@@ -33,20 +33,26 @@
 }
 
 .join-btn {
-    padding: 5px 20px; 
-    border-radius: 12px; 
-    font-size: 12px;
+    padding: 7px 20px; 
+    border-radius: 20px; 
+    font-size: 14px;
     margin-top: 10px;
 }
 
 .eachProduct {
-    /* display: flex;
-    flex-direction: column; */
+    display: flex;
+    flex-direction: column;
     max-width: 200px;
 }
 
-.nameContainer {
-   
+.cobuyerContainer {
+   display: flex;
+   align-items: center;
+}
+
+i {
+    margin-right: 5px;
+    color: grey
 }
 
 .priceContainer {
