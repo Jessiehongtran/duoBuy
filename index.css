@@ -48,24 +48,36 @@
 .cobuyerContainer {
    display: flex;
    align-items: center;
+   margin-bottom: 3px;
 }
 
 i {
     margin-right: 5px;
-    color: grey
+    color: grey;
+    font-size: 12px;
+}
+
+.number_buyers {
+    font-size: 12px;
 }
 
 .priceContainer {
     display: flex;
     /* width: 100%; */
     align-items: flex-end;
-    padding: 0
+    padding: 0;
+    
+}
+
+.price {
+    margin-bottom: 3px
 }
 
 .maxPriceContainer, .minPriceContainer {
     display: flex;
     align-items: flex-end;
     margin-right: 10px;
+    font-size: 12px;
 }
 
 .minIcon {
@@ -76,21 +88,19 @@ i {
 }
 
 .maxIcon {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     margin-right: 2px;
     padding-bottom: 5px;
 }
 
-.product-name {
-    font-size: 26px;
-}
 
 .productName {
-    font-size: 20px;
+    font-size: 16px;
     display:flex;
     flex-wrap: wrap;
     word-break:break-all;
+    margin-right: 20px;
 }
 
 .nameContainer {
@@ -99,6 +109,8 @@ i {
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-end;
+    
+   
 }
 
 .title {

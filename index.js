@@ -48,6 +48,7 @@ function displayProducts(products){
             const cobuyerIcon = document.createElement('i')
             cobuyerIcon.setAttribute('class', 'fas fa-user-friends')
             const numberOfBuyer = document.createElement('div')
+            numberOfBuyer.setAttribute('class', 'number_buyers')
             numberOfBuyer.innerHTML = products[i].cobuyers_total
             cobuyerContainer.appendChild(cobuyerIcon)
             cobuyerContainer.appendChild(numberOfBuyer)
@@ -60,14 +61,16 @@ function displayProducts(products){
             const maxIcon = document.createElement('img')
             maxIcon.setAttribute('class', 'maxIcon')
             maxIcon.src = "https://res.cloudinary.com/dfulxq7so/image/upload/v1616469856/money-bag_b7vvyv.png"
-
             const maxPrice = document.createElement("div")
+            maxPrice.setAttribute('class', 'price')
+
             const minPriceContainer = document.createElement("div")
             minPriceContainer.setAttribute('class', 'minPriceContainer')
             const minIcon = document.createElement('img')
             minIcon.setAttribute('class', 'minIcon')
             minIcon.src = "https://res.cloudinary.com/dfulxq7so/image/upload/v1616469856/money-bag_b7vvyv.png"
             const minPrice = document.createElement("div")
+            minPrice.setAttribute('class', 'price')
 
             const joinBuyButton = document.createElement("button")
             joinBuyButton.innerHTML = "Join buying"
@@ -107,12 +110,12 @@ function displayProducts(products){
             minPriceContainer.append(minPrice)
             priceContainer.append(minPriceContainer)
             priceContainer.append(maxPriceContainer)
+            priceContainer.append(cobuyerContainer)
             nameContainer.append(name)
             nameContainer.append(priceContainer)
             imageContainer.append(img)
             eachProduct.appendChild(imageContainer)
             eachProduct.appendChild(nameContainer)
-            eachProduct.appendChild(cobuyerContainer)
             eachProduct.appendChild(joinBuyButton)
 
             eachProduct.style.margin = '20px'
