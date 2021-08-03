@@ -13,6 +13,16 @@ const howItWorks = document.getElementsByClassName("how-it-works")[0]
 
 let actualCobuyers = 1
 
+function getShortName(name, len){
+    let shortName = []
+    for (let i = 0; i < name.length; i++){
+        if (i < len){
+            shortName.push(name[i])
+        }
+    }
+    return shortName.join("")
+}
+
 function displayProducts(products){
     newProduct.style.display = 'none'
     
@@ -32,11 +42,14 @@ function displayProducts(products){
         if (products[i].current_price > 0 && !products[i].achieved ){
             const eachProduct = document.createElement("div")
             eachProduct.setAttribute('class', 'eachProduct')
+            eachProduct.style.margin = '20px'
 
             const imageContainer = document.createElement("div")
             imageContainer.setAttribute('class', 'imageContainer')
             const img = document.createElement("img")
-            img.style.width = "100%"
+            img.style.width = '320px'
+            img.style.height = '320px'
+            img.style.border = '1px solid silver'
 
             const nameContainer = document.createElement("div")
             nameContainer.setAttribute('class', 'nameContainer')
@@ -98,7 +111,12 @@ function displayProducts(products){
                 })
             }
             img.src = products[i].product_image
-            name.innerHTML = products[i].product_name
+            if (products[i].product_name.length > 18){
+                name.innerHTML = getShortName(products[i].product_name, 18) + "..."
+            } else {
+                name.innerHTML = products[i].product_name
+            }
+
             maxPrice.innerHTML = products[i].current_price
             minPrice.innerHTML = Math.round(products[i].product_price/products[i].cobuyers_total)
             if (parseInt(maxPrice.innerHTML) < parseInt(minPrice.innerHTML)){
@@ -117,12 +135,6 @@ function displayProducts(products){
             eachProduct.appendChild(imageContainer)
             eachProduct.appendChild(nameContainer)
             eachProduct.appendChild(joinBuyButton)
-
-            eachProduct.style.margin = '20px'
-            img.style.width = '200px'
-            img.style.height = '200px'
-            img.style.border = '1px solid grey'
-
             productContainer.appendChild(eachProduct)
         }
 
