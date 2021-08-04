@@ -1,6 +1,7 @@
 //Next steps:
 //show number of cobuyers
 //bring all cobuyers into a group
+//the JOIN button does not look nice
 
 
 
@@ -47,9 +48,9 @@ function displayProducts(products){
             const imageContainer = document.createElement("div")
             imageContainer.setAttribute('class', 'imageContainer')
             const img = document.createElement("img")
-            img.style.width = '320px'
-            img.style.height = '320px'
-            img.style.border = '1px solid silver'
+            img.style.maxWidth = '100%'
+            img.style.maxHeight = '100%'
+            img.style.verticalAlign = 'middle'
 
             const nameContainer = document.createElement("div")
             nameContainer.setAttribute('class', 'nameContainer')
