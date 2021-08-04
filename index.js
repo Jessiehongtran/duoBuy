@@ -44,6 +44,7 @@ function displayProducts(products){
             const eachProduct = document.createElement("div")
             eachProduct.setAttribute('class', 'eachProduct')
             eachProduct.style.margin = '20px'
+            eachProduct.addEventListener('click', () => { location.href= `/cobuyerGroup.html?productId=${products[i].id}`})
 
             const imageContainer = document.createElement("div")
             imageContainer.setAttribute('class', 'imageContainer')
