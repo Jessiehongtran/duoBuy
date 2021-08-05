@@ -8,9 +8,14 @@
 
 }
 
+.product-name {
+    font-size: 30px;
+    line-height: 44px;
+}
+
 .title {
     margin-right: 5px;
-    font-weight: bold;
+    font-style: italic;
     color: grey
 }
 
