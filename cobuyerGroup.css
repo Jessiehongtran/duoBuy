@@ -1,5 +1,6 @@
 .container {
-    padding: 10%
+    padding: 10%;
+    font-family: 'Nunito Sans', sans-serif; 
 }
 
 .product {
@@ -7,11 +8,30 @@
 
 }
 
-.product-image {
+.title {
+    margin-right: 5px;
+    font-weight: bold;
+    color: grey
+}
+
+.row {
+    display: flex;
+    align-items: center;
+}
+
+.product-image-container {
     width: 400px;
     height: 400px;
     border: 1px solid silver;
     margin-right: 30px;
+    text-align: center;
+    line-height: 400px;
+    margin-bottom: 10px;
+    background-color: #F1F2F3;
+}
+
+img {
+    width: 100%
 }
 
 .product-info {
@@ -20,4 +40,16 @@
 
 .members {
 
+}
+
+.join-btn {
+    padding: 10px 40px; 
+    border-radius: 18px; 
+    font-size: 14px;
+    margin-top: 10px;
+    background-color: #C83714; 
+    border: none;
+    font-family: 'Nunito Sans', sans-serif; 
+    color: white; 
+    cursor: pointer;
 }

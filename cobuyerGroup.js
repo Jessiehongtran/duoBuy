@@ -27,8 +27,8 @@ function getProductById(){
                 if (product){
                     productImage.src = product.product_image
                     productName.innerHTML = product.product_name
-                    minPrice.innerHTML = Math.round(product.product_price/product.cobuyers_total)
-                    maxPrice.innerHTML = products[i].current_price
+                    minPrice.innerHTML = "$" + Math.round(product.product_price/product.cobuyers_total).toString()
+                    maxPrice.innerHTML = "$" + product.current_price.toString()
                 }
             }
         
