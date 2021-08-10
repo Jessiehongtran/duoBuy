@@ -7,6 +7,7 @@ const productName = document.getElementsByClassName("product-name")[0]
 const minPrice = document.getElementsByClassName("min-price")[0]
 const maxPrice = document.getElementsByClassName("max-price")[0]
 const cobuyerContainer = document.getElementsByClassName("cobuyers")[0]
+const fundBarColor =  document.getElementsByClassName("fund-bar color")[0]
 
 getCobuyersOfAProduct()
 getProductById()
@@ -29,6 +30,7 @@ function getProductById(){
                     productName.innerHTML = product.product_name
                     minPrice.innerHTML = "$" + Math.round(product.product_price/product.cobuyers_total).toString()
                     maxPrice.innerHTML = "$" + product.current_price.toString()
+                    fundBarColor.style.width = `${(1 - product.current_price/product.product_price)*100}%`
                 }
             }
         

@@ -18,6 +18,10 @@
     line-height: 44px;
 }
 
+.description {
+    max-width: 400px;
+}
+
 .title {
     margin-right: 5px;
     font-style: italic;
@@ -56,10 +60,22 @@ img {
     padding: 10px 40px; 
     border-radius: 18px; 
     font-size: 14px;
-    margin-top: 10px;
+    margin-top: 20px;
     background-color: #C83714; 
     border: none;
     font-family: 'Nunito Sans', sans-serif; 
     color: white; 
     cursor: pointer;
+}
+
+.fund-bar {
+    position: relative;
+    border: 1px solid silver;
+    width: 100px;
+    height: 5px
+}
+
+.fund-bar.color {
+    background-color: #F64E25;
+    height: 5px
 }
