@@ -1,7 +1,7 @@
 //Next steps:
-//show number of cobuyers
 //bring all cobuyers into a group
-//the JOIN button does not look nice
+//take out join buying btn?
+//Min you pay: $1667, Max you pay: $1111, this is not correct
 
 
 
@@ -91,27 +91,27 @@ function displayProducts(products){
             joinBuyButton.innerHTML = "Join buying"
             joinBuyButton.setAttribute('class', 'join-btn')
 
-            if (parseInt(products[i].actual_cobuyers) <= parseInt(products[i].cobuyers_total)){
-                joinBuyButton.addEventListener('click', function(){
-                    console.log('give click function')
-                    updateProduct(products[i].id,
-                        JSON.stringify({
-                            actual_cobuyers: products[i].actual_cobuyers + 1, 
-                            current_price: Math.round(products[i].product_price/(2+products[i].actual_cobuyers),2),
+            // if (parseInt(products[i].actual_cobuyers) <= parseInt(products[i].cobuyers_total)){
+            //     joinBuyButton.addEventListener('click', function(){
+            //         console.log('give click function')
+            //         updateProduct(products[i].id,
+            //             JSON.stringify({
+            //                 actual_cobuyers: products[i].actual_cobuyers + 1, 
+            //                 current_price: Math.round(products[i].product_price/(2+products[i].actual_cobuyers),2),
                     
-                        }) 
-                    )
-                    handleJoinBuying(products[i].current_price) 
-                })
-            } else {
-                joinBuyButton.addEventListener('click', function(){
-                    updateProduct(products[i].id,
-                        JSON.stringify({
-                            achieved: true
-                        })
-                    )
-                })
-            }
+            //             }) 
+            //         )
+            //         handleJoinBuying(products[i].current_price) 
+            //     })
+            // } else {
+            //     joinBuyButton.addEventListener('click', function(){
+            //         updateProduct(products[i].id,
+            //             JSON.stringify({
+            //                 achieved: true
+            //             })
+            //         )
+            //     })
+            // }
             img.src = products[i].product_image
             if (products[i].product_name.length > 18){
                 name.innerHTML = getShortName(products[i].product_name, 18) + "..."
@@ -136,7 +136,7 @@ function displayProducts(products){
             imageContainer.append(img)
             eachProduct.appendChild(imageContainer)
             eachProduct.appendChild(nameContainer)
-            eachProduct.appendChild(joinBuyButton)
+            // eachProduct.appendChild(joinBuyButton)
             productContainer.appendChild(eachProduct)
         }
 
